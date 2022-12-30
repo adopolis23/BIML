@@ -19,6 +19,8 @@ namespace biml
 
 	private:
 
+		void initKernel();
+
 		KernelType m_Type;
 		unsigned int m_WindowSize;
 		float* m_Data;

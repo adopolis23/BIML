@@ -1,4 +1,5 @@
 ﻿  Kernel.cpp
+E:\dev\BIML\src\Kernel.cpp(28,22): warning C4018: '<': signed/unsigned mismatch
   Utility.cpp
   Generating Code...
   BIML.vcxproj -> E:\dev\BIML\x64\Debug\BIML.lib
