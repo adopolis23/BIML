@@ -3,6 +3,8 @@
 
 namespace biml {
 
+
 	void Binarize(Image& img, int threshold);
+	void UniformSmooth(Image& img, int ws);
 
 };

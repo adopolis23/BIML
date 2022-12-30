@@ -24,6 +24,9 @@
     <ClInclude Include="src\Image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Kernel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BIML.cpp">
@@ -35,5 +38,11 @@
     <ClCompile Include="src\Image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Kernel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
   </ItemGroup>
 </Project>
