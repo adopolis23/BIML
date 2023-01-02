@@ -31,10 +31,9 @@ namespace biml {
 	void biml::UniformSmooth(Image& img, int ws) 
 	{
 		
-		Kernel k(KernelType::UNIFORM_SMOOTH, 3); 
-
-		std::cin.get();
+		Kernel k(KernelType::UNIFORM_SMOOTH, ws); 
+		int result = img.Convolve(k);
 
 	}
-
+	
 };

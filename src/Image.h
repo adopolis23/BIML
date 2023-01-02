@@ -1,6 +1,12 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
+#include <fstream>
+#include <string>
+
+#include "Kernel.h"
+
 
 #define LOG(x) std::cout << x << std::endl
 
@@ -60,6 +66,9 @@ namespace biml {
 		int getWidth() const;
 		int getHeight() const;
 		int getMaxValue() const;
+
+
+		int Convolve(Kernel kernel);
 
 
 

@@ -1,7 +1,5 @@
 #include "Image.h"
-#include <iostream>
-#include <fstream>
-#include <string>
+
 
 namespace biml {
 
@@ -164,6 +162,8 @@ namespace biml {
 
 
 
+
+
 	void Image::setSize(int rows, int cols)
 	{
 		//this is the size of one channel
@@ -173,6 +173,62 @@ namespace biml {
 		this->m_Data.greenChannel.resize(channelSize);
 		this->m_Data.blueChannel.resize(channelSize);
 	}
+
+
+
+
+
+
+
+
+	int Image::Convolve(Kernel kernel)
+	{
+
+		//if window size is 5 then windowSize/2 = 2
+		int newVal = 0;
+
+		//for each pixel in image [without getting too close to edge]
+		for (int i = kernel.getWindowSize() / 2; i < this->getHeight() - (kernel.getWindowSize() / 2) - 1; i++) {
+			for (int j = kernel.getWindowSize() / 2; j < this->getWidth() - (kernel.getWindowSize() / 2) - 1; j++) {
+
+				newVal = 0;
+
+				for (int in = 0; in < kernel.getWindowSize(); in++) {
+					for (int jn = 0; jn < kernel.getWindowSize(); jn++) {
+
+
+
+						float kernelval = kernel.getValue(in, jn);
+						int imageval = this->getPixel((i - (kernel.getWindowSize() / 2) + in), (j - (kernel.getWindowSize() / 2) + jn));
+
+
+						newVal = newVal + (kernelval * imageval);
+
+						
+
+
+					}
+				}
+
+				this->setPixel(i, j, newVal);
+				//std::cout << i << " : " << j << std::endl;
+
+			}
+
+		}
+
+
+		return 0; 
+
+
+
+	}
+
+
+
+
+
+
 
 	unsigned int Image::getPixel(int row, int col)
 	{
@@ -184,7 +240,7 @@ namespace biml {
 	{
 
 		int index = row * this->m_Data.width + col;
-		this->m_Data.redChannel[index] = value;
+		this->m_Data.redChannel[index] = (value > 255 ? 255 : value);
 
 	}
 

@@ -1,7 +1,6 @@
 #include "Kernel.h"
 
-#include <stdlib.h>
-#include <iostream>
+
 
 namespace biml {
 
@@ -11,7 +10,7 @@ namespace biml {
 		this->m_Type = type;
 		this->m_WindowSize = size;
 
-		this->m_Data = (float*)malloc((size_t)(size * 2 * sizeof(float)));
+		this->m_Data = (float*)malloc((size_t)(size * size * sizeof(float)));
 
 		initKernel();
 		
@@ -25,8 +24,8 @@ namespace biml {
 
 
 
-			for (int i = 0; i < this->m_WindowSize* this->m_WindowSize; i++) {
-				this->m_Data[i] = ((float)1.0f/this->m_WindowSize * this->m_WindowSize);
+			for (int i = 0; i < this->m_WindowSize * this->m_WindowSize; i++) {
+				this->m_Data[i] = ((float)1.0f/(this->m_WindowSize * this->m_WindowSize));
 			}
 
 
@@ -37,12 +36,54 @@ namespace biml {
 
 
 		}
+
+
+		std::cout << "Kernel Initialized: " << std::endl;
+		printKernel();
 	}
 
 
 	Kernel::~Kernel()
 	{
-		free(this->m_Data);
+		//free(this->m_Data);
 	}
+	
+
+
+
+	float Kernel::getValue(int row, int col) const 
+	{
+		int index = row * this->getWindowSize() + col;
+		return this->m_Data[index];
+	}
+
+
+
+
+	unsigned int Kernel::getWindowSize() const {
+		return this->m_WindowSize;
+	}
+
+	float* Kernel::getData() const
+	{
+		return this->m_Data;
+	}
+
+
+
+
+	void Kernel::printKernel() {
+		for (int i = 0; i < this->m_WindowSize; i++) {
+			for (int j = 0; j < this->m_WindowSize; j++) {
+				std::cout << this->getValue(i, j) << " ";
+			}
+			std::cout << "\n";
+		}
+	}
+
+
+
+
+
 
 }

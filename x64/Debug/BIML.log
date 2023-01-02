@@ -1,5 +1,9 @@
-﻿  Kernel.cpp
-E:\dev\BIML\src\Kernel.cpp(28,22): warning C4018: '<': signed/unsigned mismatch
-  Utility.cpp
-  Generating Code...
+﻿  Image.cpp
+E:\dev\BIML\src\Image.cpp(100,22): warning C4018: '<': signed/unsigned mismatch
+E:\dev\BIML\src\Image.cpp(149,22): warning C4018: '<': signed/unsigned mismatch
+E:\dev\BIML\src\Image.cpp(191,46): warning C4018: '<': signed/unsigned mismatch
+E:\dev\BIML\src\Image.cpp(192,47): warning C4018: '<': signed/unsigned mismatch
+E:\dev\BIML\src\Image.cpp(196,25): warning C4018: '<': signed/unsigned mismatch
+E:\dev\BIML\src\Image.cpp(197,26): warning C4018: '<': signed/unsigned mismatch
+E:\dev\BIML\src\Image.cpp(205,23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   BIML.vcxproj -> E:\dev\BIML\x64\Debug\BIML.lib
