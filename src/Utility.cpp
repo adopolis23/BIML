@@ -1,6 +1,5 @@
 #include "Utility.h"
-#include "Kernel.h"
-#include <iostream>
+
 
 
 namespace biml {
@@ -30,9 +29,19 @@ namespace biml {
 
 	void biml::UniformSmooth(Image& img, int ws) 
 	{
+		std::cout << "Computing Uniform Smooth; Window Size: " << ws << std::endl;
 		
 		Kernel k(KernelType::UNIFORM_SMOOTH, ws); 
-		int result = img.Convolve(k);
+
+		auto start_time = std::chrono::high_resolution_clock::now();
+
+		img.Convolve(k);
+
+		auto stop_time = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop_time - start_time);
+
+		std::cout << "Exec Time for Uniform Smooth: " << duration.count()/1000 << " nanoseconds." << "\n";
+
 
 	}
 	
