@@ -57,6 +57,8 @@ namespace biml {
 
 		void setSize(int rows, int cols);
 
+		void copyImage(Image& img);
+
 
 		//getters and setters
 		unsigned int getPixel(int row, int col);

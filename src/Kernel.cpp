@@ -37,7 +37,16 @@ namespace biml {
 			//setup kernel for sobel
 
 			for (int i = 0; i < this->m_WindowSize * this->m_WindowSize; i++) {
-				this->m_Data[i] = (int)(i % this->m_WindowSize) - 1;
+				this->m_Data[i] = (int)(i % this->m_WindowSize) - (int)(this->m_WindowSize/2);
+			}
+
+		}
+
+		else if (this->m_Type == KernelType::SOBEL_Y) {
+			//setup kernel for sobel
+
+			for (int i = 0; i < this->m_WindowSize * this->m_WindowSize; i++) {
+				this->m_Data[i] = (int)(i / this->m_WindowSize) - (int)(this->m_WindowSize / 2);
 			}
 
 		}

@@ -18,6 +18,14 @@ namespace biml {
 
 	Image::Image(Image& cpy)
 	{
+		this->copyImage(cpy);
+	}
+
+
+
+
+
+	void Image::copyImage(Image& cpy) {
 		//TODO: probably a better way to do this
 
 		//clear the channels
@@ -25,21 +33,21 @@ namespace biml {
 		this->m_Data.greenChannel.clear();
 		this->m_Data.blueChannel.clear();
 
-		
+
 		this->setSize(cpy.getHeight(), cpy.getWidth());
 
 
 
 		for (int i = 0; i < this->m_Data.height; i++) {
 			for (int j = 0; j < this->m_Data.width; j++) {
-				
+
 				this->setPixel(i, j, cpy.getPixel(i, j));
-				
+
 			}
 		}
 
 		this->m_Cspace = cpy.getColorspace();
-		this->m_Type = cpy.getImageType(); 
+		this->m_Type = cpy.getImageType();
 	}
 
 
@@ -217,7 +225,7 @@ namespace biml {
 	int Image::Convolve(Kernel kernel)
 	{
 
-		Image* tgt = new Image();
+		Image* tgt = new Image(*this);
 
 		//if window size is 5 then windowSize/2 = 2
 		int newVal = 0;
@@ -245,7 +253,7 @@ namespace biml {
 					}
 				}
 
-				this->setPixel(i, j, newVal);
+				tgt->setPixel(i, j, newVal);
 				//std::cout << newVal << std::endl;
 
 			}
@@ -253,9 +261,10 @@ namespace biml {
 		}
 
 
+		this->copyImage(*tgt);
+		delete tgt;
+
 		return NO_ERROR;
-
-
 
 	}
 
@@ -283,7 +292,11 @@ namespace biml {
 		else if (value < 0)
 			newVal = 0;
 
+		
+
 		this->m_Data.redChannel[index] = newVal;
+		this->m_Data.greenChannel[index] = newVal;
+		this->m_Data.blueChannel[index] = newVal;
 
 		//this->m_Data.redChannel[index] = (value > 255 ? 255 : value);
 

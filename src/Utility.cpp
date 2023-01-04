@@ -25,8 +25,6 @@ namespace biml {
 	}
 
 
-
-
 	void biml::UniformSmooth(Image& img, int ws) 
 	{
 		std::cout << "Computing Uniform Smooth; Window Size: " << ws << std::endl;
@@ -44,6 +42,7 @@ namespace biml {
 
 
 	}
+
 
 	void biml::Sobel(Image& img, int ws, int dir)
 	{
