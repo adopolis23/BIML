@@ -46,6 +46,8 @@ namespace biml {
 
 		//constructor / destructor
 		Image();
+		Image(Image& cpy);
+
 		~Image();
 
 

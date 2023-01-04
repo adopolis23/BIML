@@ -13,6 +13,8 @@ namespace biml {
 		this->m_Data = (float*)malloc((size_t)(size * size * sizeof(float)));
 
 		initKernel();
+
+		printKernel();
 		
 	}
 
@@ -31,15 +33,15 @@ namespace biml {
 
 
 		}
-		else if (this->m_Type == KernelType::SOBEL) {
+		else if (this->m_Type == KernelType::SOBEL_X) {
 			//setup kernel for sobel
 
+			for (int i = 0; i < this->m_WindowSize * this->m_WindowSize; i++) {
+				this->m_Data[i] = (int)(i % this->m_WindowSize) - 1;
+			}
 
 		}
 
-
-		std::cout << "Kernel Initialized: " << std::endl;
-		printKernel();
 	}
 
 

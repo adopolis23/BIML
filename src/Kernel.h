@@ -7,7 +7,9 @@ namespace biml
 {
 
 	enum KernelType {
-		UNIFORM_SMOOTH, SOBEL
+		UNIFORM_SMOOTH,
+		SOBEL_X,
+		SOBEL_Y
 	};
 
 	class Kernel 

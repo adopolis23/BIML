@@ -16,6 +16,32 @@ namespace biml {
 		this->m_Cspace = colorspace::GRAYSCALE;
 	}
 
+	Image::Image(Image& cpy)
+	{
+		//TODO: probably a better way to do this
+
+		//clear the channels
+		this->m_Data.redChannel.clear();
+		this->m_Data.greenChannel.clear();
+		this->m_Data.blueChannel.clear();
+
+		
+		this->setSize(cpy.getHeight(), cpy.getWidth());
+
+
+
+		for (int i = 0; i < this->m_Data.height; i++) {
+			for (int j = 0; j < this->m_Data.width; j++) {
+				
+				this->setPixel(i, j, cpy.getPixel(i, j));
+				
+			}
+		}
+
+		this->m_Cspace = cpy.getColorspace();
+		this->m_Type = cpy.getImageType(); 
+	}
+
 
 
 
@@ -167,13 +193,20 @@ namespace biml {
 	void Image::setSize(int rows, int cols)
 	{
 		//this is the size of one channel
-		int channelSize = rows * cols;
+		int length = rows * cols;
+		this->m_Data.height = rows;
+		this->m_Data.width = cols;
 
-		this->m_Data.redChannel.resize(channelSize);
-		this->m_Data.greenChannel.resize(channelSize);
-		this->m_Data.blueChannel.resize(channelSize);
+		this->m_Data.redChannel.clear();
+		this->m_Data.greenChannel.clear();
+		this->m_Data.blueChannel.clear();
+
+		this->m_Data.redChannel.resize(length);
+		this->m_Data.greenChannel.resize(length);
+		this->m_Data.blueChannel.resize(length);
 	}
 
+	
 
 
 
@@ -183,6 +216,8 @@ namespace biml {
 
 	int Image::Convolve(Kernel kernel)
 	{
+
+		Image* tgt = new Image();
 
 		//if window size is 5 then windowSize/2 = 2
 		int newVal = 0;
@@ -211,14 +246,14 @@ namespace biml {
 				}
 
 				this->setPixel(i, j, newVal);
-				//std::cout << i << " : " << j << std::endl;
+				//std::cout << newVal << std::endl;
 
 			}
 
 		}
 
 
-		return 0; 
+		return NO_ERROR;
 
 
 
@@ -240,7 +275,17 @@ namespace biml {
 	{
 
 		int index = row * this->m_Data.width + col;
-		this->m_Data.redChannel[index] = (value > 255 ? 255 : value);
+
+		int newVal = value;
+
+		if (value > 255)
+			newVal = 255;
+		else if (value < 0)
+			newVal = 0;
+
+		this->m_Data.redChannel[index] = newVal;
+
+		//this->m_Data.redChannel[index] = (value > 255 ? 255 : value);
 
 	}
 
