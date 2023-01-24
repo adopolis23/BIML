@@ -46,6 +46,7 @@ namespace biml {
 
 		//constructor / destructor
 		Image();
+		Image(const char* filepath);
 		Image(Image& cpy);
 
 		~Image();

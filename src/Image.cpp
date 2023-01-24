@@ -16,6 +16,12 @@ namespace biml {
 		this->m_Cspace = colorspace::GRAYSCALE;
 	}
 
+	Image::Image(const char* filepath)
+		: Image()
+	{
+		Load(filepath);
+	}
+
 	Image::Image(Image& cpy)
 	{
 		this->copyImage(cpy);
