@@ -136,6 +136,10 @@
       <Project>{fdb541af-3c2b-4dbd-b441-06bf4b14469f}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\coins.pgm" />
+    <None Include="Images\tree_1.ppm" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -81,6 +81,11 @@ namespace biml {
 			this->m_Cspace = colorspace::GRAYSCALE;
 
 		}
+		else if (strstr(filepath, ".ppm") != NULL) {
+			LOG("Loading PPM File " << filepath);
+			this->m_Type = imageType::PPM;
+			this->m_Cspace = colorspace::RGB;
+		}
 		else {
 			LOG("Invalid File Format Detected");
 			return INVALID_FILE_FORMAT;
@@ -103,6 +108,9 @@ namespace biml {
 		if (this->m_Type == imageType::PGM && strcmp(str.c_str(), "P5") != 0) {
 			LOG("Invalid PGM File");
 			return INVALID_PGM_FILE;
+		}
+		else if (this->m_Type == imageType::PPM && strcmp(str.c_str(), "P6") != 0) {
+			
 		}
 
 
@@ -151,6 +159,40 @@ namespace biml {
 
 
 		}
+		else if (this->m_Type == imageType::PPM) {
+			
+			//multiply area by 3 for each channel r g and b
+			totalBytes = this->m_Data.width * this->m_Data.height * 3;
+			
+			//init buffer with size of total bytes and check initialization
+			char* buffer = (char*)malloc(totalBytes);
+			if (buffer == nullptr) {
+				LOG("Failed to initialize image data buffer");
+				return GENERAL_ERROR;
+			}
+
+			//read the file data into the buffer
+			fileData.read(buffer, totalBytes);
+
+			unsigned char r, g, b;
+
+			//for each character in the buffer add to the red channel vector
+			for (int i = 0; i < totalBytes/3; i++) {
+				r = (unsigned char)buffer[i*3];
+				g = (unsigned char)buffer[(i*3)+1];
+				b = (unsigned char)buffer[(i*3)+2];
+
+
+				this->m_Data.redChannel[i] = r;
+				this->m_Data.greenChannel[i] = g;
+				this->m_Data.blueChannel[i] = b;
+
+				//LOG((unsigned char)c);
+			}
+
+			free(buffer);
+
+		}
 
 		fileData.close();
 
@@ -165,7 +207,7 @@ namespace biml {
 	{
 		std::fstream outfile;
 		unsigned int totalBytes;
-		unsigned char c;
+		unsigned char c, r, g, b;
 
 		outfile.open(filepath, std::ios_base::out | std::ios_base::binary);
 
@@ -193,6 +235,27 @@ namespace biml {
 				outfile << (unsigned char)c;
 
 			}
+		}
+		else if (this->m_Type == imageType::PGM) {
+			
+			outfile << "P6\n";
+			outfile << this->m_Data.width << " " << this->m_Data.height << "\n";
+			outfile << "255\n";
+
+			totalBytes = this->m_Data.width * this->m_Data.height * 3;
+
+			for (int i = 0; i < totalBytes/3; i++) {
+
+				r = (this->m_Data.redChannel[i] > this->m_Data.max_value ? this->m_Data.max_value : this->m_Data.redChannel[i]);
+				g = (this->m_Data.greenChannel[i] > this->m_Data.max_value ? this->m_Data.max_value : this->m_Data.greenChannel[i]);
+				b = (this->m_Data.blueChannel[i] > this->m_Data.max_value ? this->m_Data.max_value : this->m_Data.blueChannel[i]);
+
+				outfile << (unsigned char)r;
+				outfile << (unsigned char)g;
+				outfile << (unsigned char)b;
+
+			}
+
 		}
 
 		outfile.close();
@@ -307,6 +370,33 @@ namespace biml {
 		//this->m_Data.redChannel[index] = (value > 255 ? 255 : value);
 
 	}
+
+
+
+	void Image::checkChannel(int channel) {
+		switch (channel) {
+
+		case 0:
+			for (int i = 0; i < 10; i++) {
+				LOG(m_Data.redChannel[i]);
+			}
+			break;
+		case 1:
+			for (int i = 0; i < 10; i++) {
+				LOG(m_Data.greenChannel[i]);
+			}
+			break;
+		case 2:
+			for (int i = 0; i < 10; i++) {
+				LOG(m_Data.blueChannel[i]);
+			}
+		default:
+			LOG("Default");
+		};
+	}
+
+
+
 
 	imageType Image::getImageType()
 	{

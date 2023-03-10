@@ -31,7 +31,7 @@ namespace biml {
 
 	enum channel { RED, GREEN, BLUE };
 
-	enum imageType { PGM };
+	enum imageType { PGM, PPM };
 
 	enum colorspace { GRAYSCALE, RGB };
 
@@ -75,6 +75,11 @@ namespace biml {
 
 		int Convolve(Kernel kernel);
 
+
+
+
+		//debugging functions
+		void checkChannel(int channel);
 
 
 	private:

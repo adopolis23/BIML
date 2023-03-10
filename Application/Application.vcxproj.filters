@@ -19,4 +19,8 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\coins.pgm" />
+    <None Include="Images\tree_1.ppm" />
+  </ItemGroup>
 </Project>

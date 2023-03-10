@@ -4,11 +4,10 @@
 
 int main() {
 
-	biml::Image img("Images/coins.pgm");
+	biml::Image img("Images/tree_1.ppm");
 
-	img.Convolve(biml::Kernel(biml::KernelType::SOBEL_X, 5));
 
-	img.Save("Images/coins_sobel.pgm");
+	img.Save("Images/tree_saved.pgm");
 
 	return 0;
 }
