@@ -1,2 +1,0 @@
-E:\dev\BIML\x64\Debug\BIML.lib
-C:\dev\BIML\x64\Debug\BIML.lib

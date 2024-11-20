@@ -1,0 +1,10 @@
+BIML.vcxproj.filters
+BIML.vcxproj.user
+Application/Application.vcxproj.filters
+Application/Application.vcxproj.user
+
+.vs
+
+x64
+
+Application/x64
