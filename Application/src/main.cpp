@@ -4,10 +4,10 @@
 
 int main() {
 
-	biml::Image img("Images/tree_1.ppm");
+	biml::Image img("Images/coins.ppm");
 
 
-	img.Save("Images/tree_saved.pgm");
+	img.Save("Images/coins_saved.ppm");
 
 	return 0;
 }
